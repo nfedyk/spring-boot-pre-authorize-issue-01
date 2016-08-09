@@ -23,3 +23,10 @@ private TestRecordRepository testRecordRepository;
 ```
 
 To invoke, hit `http://localhost:8080/testrecords/search/findByFirstname?fn=1`
+
+If the `@PreAuthorize` annotations are being evaluated you will see entries like the following
+on the console stdout on each request:
+
+```
+hasPermission() org.springframework.security.authentication.AnonymousAuthenticationToken@9055c2bc: Principal: anonymousUser; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_ANONYMOUS target: 1 perm:READ
+```
