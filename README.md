@@ -17,4 +17,9 @@ See: `MyPermissionEvaluator.java` which will be executed as evidence of the
 private TestRecordRepository testRecordRepository;
 ```
 
+
+```
+./gradlew bootRun
+```
+
 To invoke, hit `http://localhost:8080/testrecords/search/findByFirstname?fn=1`
