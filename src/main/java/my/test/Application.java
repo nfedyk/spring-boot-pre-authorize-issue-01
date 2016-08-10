@@ -29,6 +29,11 @@ public class Application {
 	protected PermissionEvaluator aclPermissionEvaluator() {
 		return new MyPermissionEvaluator();
 	}
+	
+	@Autowired
+	public void see(TestRecordRepository test) {
+	    System.out.println("This is my value ====================== " + test);
+	}
 
 	/**
 	 * UNCOMMENT the below to have @PreAuthorize stop working
