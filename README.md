@@ -1,5 +1,7 @@
 # spring-boot-repository-caching-issue-01
 
+https://jira.spring.io/browse/DATAREST-876
+
 ```
 ./gradlew bootRun
 ```
