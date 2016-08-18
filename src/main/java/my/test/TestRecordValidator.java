@@ -1,5 +1,7 @@
 package my.test;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -17,6 +19,7 @@ public class TestRecordValidator implements Validator {
 		return TestRecord.class.equals(clazz);
 	}
 
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public void doChecks( TestRecord passedRecord ) {
 		try {
 			if ( passedRecord.uuid != null ) {
