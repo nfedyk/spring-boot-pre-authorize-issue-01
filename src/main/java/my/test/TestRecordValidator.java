@@ -21,14 +21,7 @@ public class TestRecordValidator implements Validator {
 
 	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public void doChecks( TestRecord passedRecord ) {
-		try {
-			if ( passedRecord.uuid != null ) {
-				// get by id
-				TestRecord fetchedOneRecord = testRecordRepository.findOne(passedRecord.uuid);
-				if (fetchedOneRecord != null )	
-					System.out.println("Validator->Fetched by uuid " + fetchedOneRecord.toString());
-			}
-	
+		try {	
 				
 			TestRecord fetchedByFirstname = testRecordRepository.findByFirstname(passedRecord.firstname);
 			if (fetchedByFirstname != null )
@@ -49,6 +42,14 @@ public class TestRecordValidator implements Validator {
 		TestRecord passedRecord = (TestRecord) target;
 
 		System.out.println("Validator->Entity passed " + passedRecord.toString());
+		
+		if ( passedRecord.uuid != null ) {
+			// get by id
+			TestRecord fetchedOneRecord = testRecordRepository.findOne(passedRecord.uuid);
+			if (fetchedOneRecord != null )	
+				System.out.println("Validator->Fetched by uuid " + fetchedOneRecord.toString());
+		}
+
 		
 		doChecks(passedRecord);
 	}
