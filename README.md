@@ -1,4 +1,4 @@
-# spring-boot-repository-cashing-issue-01
+# spring-boot-repository-caching-issue-01
 
 ```
 ./gradlew bootRun
@@ -13,6 +13,11 @@ onAfterCreate UUID: 0b207a19-62b1-482b-a089-0547551e3424 Firstname:XXX Lastname:
 ```
 
 To update record, run `curl -X PATCH -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{"firstname":"AAA"}' "http://localhost:8080/testrecords/generated_uuid"` where `generated_uuid` is the output of create.
+
+
+I expect repository methods `findByFirstname` and `findByLastname` called from method annotated by `@Transactional(propagation=Propagation.REQUIRES_NEW)` to return actual DB instance, not the cached one.
+
+This is the output pof `PATCH` request where cached instance is being returned for all find calls.
 
 ```
 onBeforeSave UUID: 38fd344c-eaf7-49e5-badb-48fad14cd05e Firstname:AAA Lastname: YYY ID:my.test.TestRecord@32235396
