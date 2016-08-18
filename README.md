@@ -1,34 +1,24 @@
-# spring-boot-pre-authorize-issue-01
-
-https://github.com/spring-projects/spring-security/issues/4020
-
-https://gitter.im/spring-projects/spring-security?at=57a9d71346610f17394b8ed5
-
-In `Application.java`
-
-Uncomment the block below for have `@PreAuthorize` annotations defined in `TestRecordRepository`
-**NOT be evaluated** (unexpected)
-
-Comment out the block, and `@PreAuthorize` annotations in `TestRecordRepository` will work as expected
-
-See: `MyPermissionEvaluator.java` which will be executed as evidence of the
-`@PreAuthorize` annotations working or not (prints to STDOUT)
-
-```
-@Autowired
-private TestRecordRepository testRecordRepository;
-```
-
+# spring-boot-repository-cashing-issue-01
 
 ```
 ./gradlew bootRun
 ```
 
-To invoke, hit `http://localhost:8080/testrecords/search/findByFirstname?fn=1`
-
-If the `@PreAuthorize` annotations are being evaluated you will see entries like the following
-on the console stdout on each request:
+To create record, run  `curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{"firstname":"XXX", "lastname":"YYY"}' "http://localhost:8080/testrecords"`
 
 ```
-hasPermission() org.springframework.security.authentication.AnonymousAuthenticationToken@9055c2bc: Principal: anonymousUser; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_ANONYMOUS target: 1 perm:READ
+onBeforeCreate UUID: null Firstname:XXX Lastname: YYY ID:my.test.TestRecord@32235396
+Validator->Entity passed UUID: null Firstname:XXX Lastname: YYY ID:my.test.TestRecord@32235396
+onAfterCreate UUID: 0b207a19-62b1-482b-a089-0547551e3424 Firstname:XXX Lastname: YYY ID:my.test.TestRecord@32235396
+```
+
+To update record, run `curl -X PATCH -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{"firstname":"AAA"}' "http://localhost:8080/testrecords/generated_uuid"` where `generated_uuid` is the output of create.
+
+```
+onBeforeSave UUID: 38fd344c-eaf7-49e5-badb-48fad14cd05e Firstname:AAA Lastname: YYY ID:my.test.TestRecord@32235396
+Validator->Entity passed UUID: 38fd344c-eaf7-49e5-badb-48fad14cd05e Firstname:AAA Lastname: YYY ID:my.test.TestRecord@32235396
+Validator->Fetched by uuid UUID: 38fd344c-eaf7-49e5-badb-48fad14cd05e Firstname:AAA Lastname: YYY ID:my.test.TestRecord@32235396
+Validator->Fetched by firstname UUID: 38fd344c-eaf7-49e5-badb-48fad14cd05e Firstname:AAA Lastname: YYY ID:my.test.TestRecord@32235396
+Validator->Fetched by lastname UUID: 38fd344c-eaf7-49e5-badb-48fad14cd05e Firstname:AAA Lastname: YYY ID:my.test.TestRecord@32235396
+onAfterSave UUID: 38fd344c-eaf7-49e5-badb-48fad14cd05e Firstname:AAA Lastname: YYY ID:my.test.TestRecord@32235396
 ```

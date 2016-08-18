@@ -31,4 +31,9 @@ public class BeforeSaveEventListener extends AbstractRepositoryEventListener<Obj
 		System.out.println("onAfterSave " + entity.toString());
 
 	}
+	
+	@Override
+	public void onAfterCreate(Object entity) {
+		System.out.println("onAfterCreate " + entity.toString());
+	}
 }
