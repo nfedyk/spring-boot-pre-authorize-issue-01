@@ -4,11 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.map.repository.config.EnableMapRepositories;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @Import({ResourceConfig.class})
-@EnableMapRepositories("my.test")
+@EnableJpaRepositories("my.test")
 
 public class Application {
 

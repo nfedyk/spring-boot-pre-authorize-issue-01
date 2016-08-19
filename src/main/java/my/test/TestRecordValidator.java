@@ -23,11 +23,11 @@ public class TestRecordValidator implements Validator {
 	public void doChecks( TestRecord passedRecord ) {
 		try {	
 				
-			TestRecord fetchedByFirstname = testRecordRepository.findByFirstname(passedRecord.firstname);
+			TestRecord fetchedByFirstname = testRecordRepository.findByFirstname(passedRecord.getFirstname());
 			if (fetchedByFirstname != null )
 				System.out.println("Validator->Fetched by firstname " + fetchedByFirstname.toString());
 			
-			TestRecord fetchedByLastname = testRecordRepository.findByLastname(passedRecord.lastname);
+			TestRecord fetchedByLastname = testRecordRepository.findByLastname(passedRecord.getLastname());
 			if (fetchedByLastname != null )
 				System.out.println("Validator->Fetched by lastname " + fetchedByLastname.toString());
 		
@@ -43,9 +43,9 @@ public class TestRecordValidator implements Validator {
 
 		System.out.println("Validator->Entity passed " + passedRecord.toString());
 		
-		if ( passedRecord.uuid != null ) {
+		if ( passedRecord.getUuid() != null ) {
 			// get by id
-			TestRecord fetchedOneRecord = testRecordRepository.findOne(passedRecord.uuid);
+			TestRecord fetchedOneRecord = testRecordRepository.findOne(passedRecord.getUuid());
 			if (fetchedOneRecord != null )	
 				System.out.println("Validator->Fetched by uuid " + fetchedOneRecord.toString());
 		}

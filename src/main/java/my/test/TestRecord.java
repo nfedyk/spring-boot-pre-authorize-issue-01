@@ -1,20 +1,47 @@
 package my.test;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.keyvalue.annotation.KeySpace;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-@KeySpace("test")
+@Entity
 public class TestRecord {
 	
-	@Id String uuid;
+	@Id
+	@GeneratedValue
+	private String uuid;
 	
-	public String firstname;
-	public String lastname;
+	private String firstname;
+	private String lastname;
 	
 	public String toString() {
 		return "UUID: "+uuid +
 				" Firstname:" + firstname +
 				" Lastname: " + lastname +
 				" ID:" + getClass().getName() + '@' + Integer.toHexString(hashCode());
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 }
